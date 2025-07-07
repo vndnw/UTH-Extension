@@ -1,0 +1,168 @@
+body {
+    width: 350px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+}
+
+.popup-container {
+    padding: 0;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid #667eea;
+}
+
+.header-icon {
+    margin-bottom: 10px;
+}
+
+.logo {
+    height: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h2 {
+    margin: 0 0 5px 0;
+    color: #667eea;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.content {
+    background: white;
+    padding: 20px;
+}
+
+.feature-list {
+    margin-bottom: 20px;
+}
+
+.feature-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.info-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.info-section h3 {
+    margin: 0 0 10px 0;
+    color: #667eea;
+    font-size: 16px;
+}
+
+.info-section ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.info-section li {
+    margin: 5px 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.footer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.copyright {
+    margin-bottom: 15px;
+}
+
+.copyright p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.copyright strong {
+    color: #ffd700;
+}
+
+.version {
+    font-size: 12px !important;
+    opacity: 0.8;
+}
+
+.contact, .github {
+    font-size: 12px !important;
+    opacity: 0.9;
+}
+
+.disclaimer {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.disclaimer small {
+    font-size: 11px;
+    line-height: 1.4;
+    opacity: 0.8;
+    display: block;
+}
+
+/* Scrollbar styling */
+.popup-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.popup-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.popup-container::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 3px;
+}
+
+.popup-container::-webkit-scrollbar-thumb:hover {
+    background: #5a6fd8;
+}
+
+/* Animation */
+.popup-container {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
