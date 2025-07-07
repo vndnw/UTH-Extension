@@ -81,7 +81,7 @@ Extension Chrome giúp sinh viên Trường Đại học Giao thông Vận tải
 
 Gặp vấn đề khi sử dụng? Liên hệ với chúng tôi:
 
-- **Email**: your-email@example.com
+- **Email**: vndnetwork@gmail.com
 - **GitHub Issues**: Báo lỗi trực tiếp tại repository
 
 ---
