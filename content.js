@@ -2,89 +2,89 @@
 const BASE_URL = window.location.origin;
 
 function createButton() {
-    if (document.getElementById("xem-ngay-button")) return;
+  if (document.getElementById("xem-ngay-button")) return;
 
-    const btn = document.createElement("button");
-    btn.id = "xem-ngay-button";
-    btn.textContent = "Xem ngay";
-    btn.className = "xem-ngay-fixed-btn";
-    btn.onclick = handleClick;
-    document.body.appendChild(btn);
+  const btn = document.createElement("button");
+  btn.id = "xem-ngay-button";
+  btn.textContent = "Xem ngay";
+  btn.className = "xem-ngay-fixed-btn";
+  btn.onclick = handleClick;
+  document.body.appendChild(btn);
 }
 
 async function getDotId() {
-    const token = localStorage.getItem("account");
+  const token = localStorage.getItem("account");
 
-    if (!token) {
-        throw new Error("Không tìm thấy token!");
+  if (!token) {
+    throw new Error("Không tìm thấy token!");
+  }
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1/dkhp/getDot`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    });
+
+    const data = await res.json();
+
+    if (data.success && data.body && data.body.length > 0) {
+      // Lấy đợt đầu tiên hoặc đợt hiện tại (có thể thêm logic để chọn đợt phù hợp)
+      return data.body[0].id;
+    } else {
+      throw new Error("Không lấy được thông tin đợt đăng ký");
     }
-
-    try {
-        const res = await fetch(`${BASE_URL}/api/v1/dkhp/getDot`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            credentials: "include"
-        });
-
-        const data = await res.json();
-
-        if (data.success && data.body && data.body.length > 0) {
-            // Lấy đợt đầu tiên hoặc đợt hiện tại (có thể thêm logic để chọn đợt phù hợp)
-            return data.body[0].id;
-        } else {
-            throw new Error("Không lấy được thông tin đợt đăng ký");
-        }
-    } catch (err) {
-        console.error("Lỗi khi lấy ID đợt:", err);
-        throw err;
-    }
+  } catch (err) {
+    console.error("Lỗi khi lấy ID đợt:", err);
+    throw err;
+  }
 }
 
 async function handleClick() {
-    const token = localStorage.getItem("account"); // hoặc lấy từ sessionStorage, cookie...
+  const token = localStorage.getItem("account"); // hoặc lấy từ sessionStorage, cookie...
 
-    if (!token) {
-        alert("Không tìm thấy token!");
-        return;
+  if (!token) {
+    alert("Không tìm thấy token!");
+    return;
+  }
+
+  try {
+    // Lấy ID đợt động
+    const dotId = await getDotId();
+
+    const res = await fetch(`${BASE_URL}/api/v1/dkhp/getLHPDaDangKy?idDot=${dotId}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      credentials: "include" // nếu server yêu cầu cookie
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      showModal(data.body);
+    } else {
+      alert("Không lấy được dữ liệu từ API");
     }
-
-    try {
-        // Lấy ID đợt động
-        const dotId = await getDotId();
-
-        const res = await fetch(`${BASE_URL}/api/v1/dkhp/getLHPDaDangKy?idDot=${dotId}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            credentials: "include" // nếu server yêu cầu cookie
-        });
-
-        const data = await res.json();
-
-        if (data.success) {
-            showModal(data.body);
-        } else {
-            alert("Không lấy được dữ liệu từ API");
-        }
-    } catch (err) {
-        console.error(err);
-        alert("Lỗi khi gọi API: " + err.message);
-    }
+  } catch (err) {
+    console.error(err);
+    alert("Lỗi khi gọi API: " + err.message);
+  }
 }
 
 
 function showModal(classes) {
-    if (document.getElementById("lhp-modal")) return;
+  if (document.getElementById("lhp-modal")) return;
 
-    const modal = document.createElement("div");
-    modal.id = "lhp-modal";
-    modal.className = "lhp-modal-overlay";
-    modal.innerHTML = `
+  const modal = document.createElement("div");
+  modal.id = "lhp-modal";
+  modal.className = "lhp-modal-overlay";
+  modal.innerHTML = `
     <div class="lhp-modal-content">
       <h2>Lớp học phần đã đăng ký</h2>
       <table class="lhp-table">
@@ -118,52 +118,52 @@ function showModal(classes) {
       <button id="close-lhp-modal" class="close-modal-btn">Đóng</button>
     </div>
   `;
-    document.body.appendChild(modal);
+  document.body.appendChild(modal);
 
-    document.getElementById("close-lhp-modal").onclick = () => {
-        modal.remove();
-    };
+  document.getElementById("close-lhp-modal").onclick = () => {
+    modal.remove();
+  };
 
-    document.querySelectorAll(".other-class-btn").forEach(btn => {
-        btn.addEventListener("click", async () => {
-            const maLopHocPhan = btn.getAttribute("data-ma");
-            const maHocPhan = maLopHocPhan.slice(0, 10);
-            try {
-                const token = localStorage.getItem("account") || ""; // hoặc get từ cookie
+  document.querySelectorAll(".other-class-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const maLopHocPhan = btn.getAttribute("data-ma");
+      const maHocPhan = maLopHocPhan.slice(0, 10);
+      try {
+        const token = localStorage.getItem("account") || ""; // hoặc get từ cookie
 
-                // Lấy ID đợt động
-                const dotId = await getDotId();
+        // Lấy ID đợt động
+        const dotId = await getDotId();
 
-                const res = await fetch(`${BASE_URL}/api/v1/dkhp/getLopHocPhanChoDangKy?idDot=${dotId}&maHocPhan=${maHocPhan}&isLocTrung=false&isLocTrungWithoutElearning=false`, {
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    credentials: "include"
-                });
-
-                const data = await res.json();
-                if (data.success) {
-                    showOtherClassModal(data.body || [], data.body[0]?.tenMonHoc || "Không rõ tên môn học");
-                } else {
-                    alert("Không lấy được lớp khác.");
-                }
-            } catch (e) {
-                console.error(e);
-                alert("Lỗi khi gọi API lớp khác: " + e.message);
-            }
+        const res = await fetch(`${BASE_URL}/api/v1/dkhp/getLopHocPhanChoDangKy?idDot=${dotId}&maHocPhan=${maHocPhan}&isLocTrung=false&isLocTrungWithoutElearning=false`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          credentials: "include"
         });
+
+        const data = await res.json();
+        if (data.success) {
+          showOtherClassModal(data.body || [], data.body[0]?.tenMonHoc || "Không rõ tên môn học");
+        } else {
+          alert("Không lấy được lớp khác.");
+        }
+      } catch (e) {
+        console.error(e);
+        alert("Lỗi khi gọi API lớp khác: " + e.message);
+      }
     });
+  });
 }
 
 function showOtherClassModal(list, tenMonHoc) {
-    const existing = document.getElementById("other-class-modal");
-    if (existing) existing.remove();
+  const existing = document.getElementById("other-class-modal");
+  if (existing) existing.remove();
 
-    const modal = document.createElement("div");
-    modal.id = "other-class-modal";
-    modal.className = "lhp-modal-overlay";
-    modal.innerHTML = `
+  const modal = document.createElement("div");
+  modal.id = "other-class-modal";
+  modal.className = "lhp-modal-overlay";
+  modal.innerHTML = `
     <div class="lhp-modal-content" style="max-width: 800px;">
       <h3>Các lớp khác của môn: ${tenMonHoc}</h3>
       <table class="lhp-table">
@@ -191,69 +191,69 @@ function showOtherClassModal(list, tenMonHoc) {
       <button id="close-other-class-modal" class="close-modal-btn">Đóng</button>
     </div>
   `;
-    document.body.appendChild(modal);
+  document.body.appendChild(modal);
 
-    document.getElementById("close-other-class-modal").onclick = () => modal.remove();
+  document.getElementById("close-other-class-modal").onclick = () => modal.remove();
 
-    // Thêm event listener cho các nút "Xem chi tiết"
-    document.querySelectorAll(".xem-chi-tiet-btn").forEach(btn => {
-        btn.addEventListener("click", async () => {
-            const idLopHocPhan = btn.getAttribute("data-id");
-            const maLopHocPhan = btn.getAttribute("data-ma");
-            await showClassDetailModal(idLopHocPhan, maLopHocPhan);
-        });
+  // Thêm event listener cho các nút "Xem chi tiết"
+  document.querySelectorAll(".xem-chi-tiet-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const idLopHocPhan = btn.getAttribute("data-id");
+      const maLopHocPhan = btn.getAttribute("data-ma");
+      await showClassDetailModal(idLopHocPhan, maLopHocPhan);
     });
+  });
 }
 
 
 async function showClassDetailModal(idLopHocPhan, maLopHocPhan) {
-    try {
-        const token = localStorage.getItem("account");
-        if (!token) {
-            alert("Không tìm thấy token!");
-            return;
-        }
-
-        const res = await fetch(`${BASE_URL}/api/v1/dkhp/getLopHocPhanDetail?idLopHocPhan=${idLopHocPhan}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            credentials: "include"
-        });
-
-        const data = await res.json();
-
-        if (data.success) {
-            displayClassDetail(data.body || [], maLopHocPhan);
-        } else {
-            alert("Không lấy được chi tiết lớp học phần.");
-        }
-    } catch (err) {
-        console.error("Lỗi khi lấy chi tiết lớp học phần:", err);
-        alert("Lỗi khi gọi API chi tiết: " + err.message);
+  try {
+    const token = localStorage.getItem("account");
+    if (!token) {
+      alert("Không tìm thấy token!");
+      return;
     }
+
+    const res = await fetch(`${BASE_URL}/api/v1/dkhp/getLopHocPhanDetail?idLopHocPhan=${idLopHocPhan}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      displayClassDetail(data.body || [], maLopHocPhan);
+    } else {
+      alert("Không lấy được chi tiết lớp học phần.");
+    }
+  } catch (err) {
+    console.error("Lỗi khi lấy chi tiết lớp học phần:", err);
+    alert("Lỗi khi gọi API chi tiết: " + err.message);
+  }
 }
 
 function displayClassDetail(schedules, maLopHocPhan) {
-    const existing = document.getElementById("class-detail-modal");
-    if (existing) existing.remove();
+  const existing = document.getElementById("class-detail-modal");
+  if (existing) existing.remove();
 
-    const daysOfWeek = {
-        2: "Thứ 2",
-        3: "Thứ 3",
-        4: "Thứ 4",
-        5: "Thứ 5",
-        6: "Thứ 6",
-        7: "Thứ 7",
-        8: "Chủ nhật"
-    };
+  const daysOfWeek = {
+    2: "Thứ 2",
+    3: "Thứ 3",
+    4: "Thứ 4",
+    5: "Thứ 5",
+    6: "Thứ 6",
+    7: "Thứ 7",
+    8: "Chủ nhật"
+  };
 
-    const modal = document.createElement("div");
-    modal.id = "class-detail-modal";
-    modal.className = "lhp-modal-overlay";
-    modal.innerHTML = `
+  const modal = document.createElement("div");
+  modal.id = "class-detail-modal";
+  modal.className = "lhp-modal-overlay";
+  modal.innerHTML = `
     <div class="lhp-modal-content" style="max-width: 900px;">
       <h3>Chi tiết lịch học - Mã lớp học phần: ${maLopHocPhan}</h3>
       <table class="lhp-table">
@@ -291,25 +291,10 @@ function displayClassDetail(schedules, maLopHocPhan) {
       <button id="close-class-detail-modal" class="close-modal-btn">Đóng</button>
     </div>
   `;
-    document.body.appendChild(modal);
+  document.body.appendChild(modal);
 
-    document.getElementById("close-class-detail-modal").onclick = () => modal.remove();
+  document.getElementById("close-class-detail-modal").onclick = () => modal.remove();
 }
 
-function observeText() {
-    const observer = new MutationObserver(() => {
-        const found = [...document.body.querySelectorAll("*")]
-            .some(el => el.textContent.includes("Học phần đã đăng ký trong học kỳ này"));
-        if (found) {
-            createButton();
-            observer.disconnect();
-        }
-    });
-
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-observeText();
+// Khởi tạo extension
+createButton();
