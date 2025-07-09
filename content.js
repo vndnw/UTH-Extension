@@ -16,7 +16,7 @@ async function getDotId() {
   const token = localStorage.getItem("account");
 
   if (!token) {
-    throw new Error("Không tìm thấy token!");
+    throw new Error("Vui lòng đăng nhập hoặc tải lại trang để tiếp tục!");
   }
 
   try {
@@ -47,7 +47,7 @@ async function handleClick() {
   const token = localStorage.getItem("account"); // hoặc lấy từ sessionStorage, cookie...
 
   if (!token) {
-    alert("Không tìm thấy token!");
+    alert("Vui lòng đăng nhập hoặc tải lại trang để sử dụng chức năng này!");
     return;
   }
 
@@ -210,7 +210,7 @@ async function showClassDetailModal(idLopHocPhan, maLopHocPhan) {
   try {
     const token = localStorage.getItem("account");
     if (!token) {
-      alert("Không tìm thấy token!");
+      alert("Vui lòng đăng nhập hoặc tải lại trang để xem chi tiết!");
       return;
     }
 
