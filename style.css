@@ -1,0 +1,554 @@
+.xem-ngay-fixed-btn {
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53, #4ecdc4);
+  background-size: 200% 200%;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10 !important;
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+  transition: all 0.3s ease;
+  animation: 
+    pulse 2s infinite,
+    gradientShift 3s ease-in-out infinite,
+    bounce 4s ease-in-out infinite,
+    glow 2.5s ease-in-out infinite alternate;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  overflow: hidden;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.xem-ngay-fixed-btn:hover {
+  background: linear-gradient(45deg, #ff5252, #ff7043, #26a69a);
+  background-size: 200% 200%;
+  transform: translateY(-5px) scale(1.1) rotate(1deg);
+  box-shadow: 0 15px 30px rgba(255, 107, 107, 0.8);
+  animation: 
+    shimmer 0.6s ease-in-out,
+    wiggle 0.5s ease-in-out;
+}
+
+.xem-ngay-fixed-btn:active {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+  animation: clickPulse 0.3s ease-out;
+}
+
+.xem-ngay-fixed-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s;
+}
+
+.xem-ngay-fixed-btn:hover::before {
+  left: 100%;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.8), 0 0 20px rgba(255, 107, 107, 0.3);
+  }
+  100% {
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes glow {
+  0% {
+    filter: brightness(1) hue-rotate(0deg);
+  }
+  100% {
+    filter: brightness(1.2) hue-rotate(15deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateY(-5px) scale(1.1) rotate(1deg);
+  }
+  25% {
+    transform: translateY(-5px) scale(1.1) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.1) rotate(1deg);
+  }
+  75% {
+    transform: translateY(-5px) scale(1.1) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(-5px) scale(1.1) rotate(1deg);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: translateY(-5px) scale(1.1) rotate(1deg);
+  }
+  25% {
+    transform: translateY(-5px) scale(1.1) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-5px) scale(1.1) rotate(2deg);
+  }
+}
+
+@keyframes clickPulse {
+  0% {
+    transform: translateY(-2px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-2px) scale(0.95);
+  }
+  100% {
+    transform: translateY(-2px) scale(1.05);
+  }
+}
+
+.lhp-drawer-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 600px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 10000;
+  overflow-y: auto;
+}
+
+.lhp-drawer-overlay.open {
+  transform: translateX(0);
+}
+
+.lhp-drawer-content {
+  padding: 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.lhp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.lhp-table th, .lhp-table td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.lhp-table th {
+  background-color: #1976d2;
+  color: white;
+}
+
+.close-modal-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-modal-btn:hover {
+  background: #9a0007;
+}
+.other-class-btn {
+  background-color: #009688;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.other-class-btn:hover {
+  background-color: #00796b;
+}
+
+#other-class-modal .lhp-drawer-content {
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+/* CSS cho button "xem chi tiết" - phiên bản nhỏ cho bảng */
+.xem-chi-tiet-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+  min-width: 90px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.xem-chi-tiet-btn:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.5);
+  animation: buttonFloat 0.4s ease-in-out;
+}
+
+.xem-chi-tiet-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.xem-chi-tiet-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s;
+}
+
+.xem-chi-tiet-btn:hover::before {
+  left: 100%;
+}
+
+.xem-chi-tiet-btn::after {
+  content: '';
+  font-size: 10px;
+}
+
+/* Animation cho button float */
+@keyframes buttonFloat {
+  0%, 100% {
+    transform: translateY(-1px) scale(1.03);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.03);
+  }
+}
+
+.view-new-btn {
+  background: linear-gradient(45deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+  transition: background 0.3s;
+}
+
+.view-new-btn:hover {
+  background: linear-gradient(45deg, #45a049, #4CAF50);
+}
+
+.view-classes-btn {
+  background: linear-gradient(45deg, #2196F3, #1976D2);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.view-classes-btn:hover {
+  background: linear-gradient(45deg, #1976D2, #2196F3);
+}
+
+.dot-select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
+  pointer-events: none;
+}
+
+.toast {
+  background: #333;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast.success {
+  background: #4CAF50;
+}
+
+.toast.error {
+  background: #f44336;
+}
+
+.toast.info {
+  background: #2196F3;
+}
+
+/* Tooltips */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 10002;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Inline Expansion */
+.expandable-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.expandable-content.expanded {
+  max-height: 500px; /* Adjust as needed */
+}
+
+/* Expandable Rows */
+.expandable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  display: table-row;
+}
+
+.expandable-row:hover {
+  background-color: #f0f8ff;
+}
+
+.expandable-row.expanded {
+  background-color: #e6f7ff;
+  border-bottom: 2px solid #1890ff;
+}
+
+.expandable-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+  background-color: #fafafa;
+}
+
+.expandable-content.expanded {
+  max-height: 800px;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.sub-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sub-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sub-table th,
+.sub-table td {
+  padding: 8px 12px;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.sub-table th {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #333;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.sub-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.sub-table tr:hover {
+  background-color: #e6f7ff;
+}
+
+.expand-icon {
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.expandable-row.expanded .expand-icon {
+  transform: rotate(90deg);
+  color: #1890ff;
+}
+
+/* Test rule to ensure CSS is valid */
+.test-rule {
+  display: none;
+}
+
+/* Register Button Styles */
+.dang-ky-btn {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 70px;
+}
+
+.dang-ky-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #45a049, #4CAF50);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.dang-ky-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.dang-ky-btn.disabled {
+  background: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.dang-ky-btn:disabled {
+  background: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
