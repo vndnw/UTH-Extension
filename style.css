@@ -278,3 +278,43 @@
     transform: translateY(-2px) scale(1.03);
   }
 }
+
+.view-new-btn {
+  background: linear-gradient(45deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+  transition: background 0.3s;
+}
+
+.view-new-btn:hover {
+  background: linear-gradient(45deg, #45a049, #4CAF50);
+}
+
+.view-classes-btn {
+  background: linear-gradient(45deg, #2196F3, #1976D2);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.view-classes-btn:hover {
+  background: linear-gradient(45deg, #1976D2, #2196F3);
+}
+
+.dot-select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
